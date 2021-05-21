@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>All room's</h1><hr>
+    {% for room in rooms %}
+        <i><a href="{% url 'room-detail' room_id=room.id %}"> Room for {{ room.places_in_room }} person </a></i><br><br>
+        <i> {{ room.count_per_night }}$ </i> <br>
+        {% if room.is_free == True %}
+            Room is free<br>
+        {% else %}
+            Room is occupied<br>
+        {% endif %}
+        <hr>
+    {% endfor %}
+
+</body>
+</html>

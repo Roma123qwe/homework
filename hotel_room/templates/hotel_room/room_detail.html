@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Room for {{ room.places_in_room }} person </h1><br>
+    {{ room.description }}<br>
+    {{ room.count_per_night }}<br>
+    {% if room.is_free == True %}
+        Room is free<br>
+    {% else %}
+        Room is occupied<br>
+    {% endif %}
+    <a href="\hotel\"> Main page </a>
+
+</body>
+</html>
