@@ -7,7 +7,7 @@
 <body>
     <h1>Room for {{ room.places_in_room }} person </h1><br>
     {{ room.description }}<br>
-    {{ room.count_per_night }}<br>
+    {{ room.count_per_night }} $<br>
     {% if room.is_free == True %}
         Room is free<br>
     {% else %}
