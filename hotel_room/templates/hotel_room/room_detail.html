@@ -5,7 +5,8 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>Room for {{ room.places_in_room }} person </h1><br>
+    <h1> {{ room.title }} </h1><br>
+    Room for {{ room.places_in_room }} person<br>
     {{ room.description }}<br>
     {{ room.count_per_night }} $<br>
     {% if room.is_free == True %}
@@ -13,7 +14,9 @@
     {% else %}
         Room is occupied<br>
     {% endif %}
+    <a href="{% url 'room_reservation' room_id=room.id %}"><i>Reserv</i> </a>
     <a href="\hotel\"> Main page </a>
+
 
 </body>
 </html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Room reservation</h1>
+    {{ room.title }}<br>
+    <form method="post" action="{% url 'room_reservation' room_id=room.id %}">
+        {% csrf_token %}
+        <label for="reserv_from">Date from:</label><br><br>
+        <input name="reserv_from" id="reserv_from" type="date"><br><br>
+        <label for="reserv_to">Date_to:</label><br><br>
+        <input name="reserv_to" id="reserv_to" type="date"><br><br>
+        <input type="submit" value="Reserv">
+    </form>
+    {% if exept == True %}
+        <h2>This date is reserved an other people or can't be reserved</h2>
+    {% endif %}
+</body>
+</html>
