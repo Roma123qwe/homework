@@ -8,6 +8,7 @@ class Room(models.Model):
     is_free = models.BooleanField(default=True)
     description = models.TextField()
 
+
     def __str__(self):
         return self.title
 
@@ -22,3 +23,9 @@ class Reserv(models.Model):
                                   on_delete=models.CASCADE,
                                   related_name='Reservs',
                                   )
+
+class Owners(models.Model):
+    name = models.CharField(max_length=50)
+    room = models.ForeignKey(Room,
+                             on_delete=models.CASCADE,
+                              related_name='owner')

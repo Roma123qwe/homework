@@ -10,9 +10,9 @@
     <form method="post" action="{% url 'room_reservation' room_id=room.id %}">
         {% csrf_token %}
         <label for="reserv_from">Date from:</label><br><br>
-        <input name="reserv_from" id="reserv_from" type="date"><br><br>
+        <input name="reserv_from" id="reserv_from" type="date" min={{ today }}><br><br>
         <label for="reserv_to">Date_to:</label><br><br>
-        <input name="reserv_to" id="reserv_to" type="date"><br><br>
+        <input name="reserv_to" id="reserv_to" type="date" min={{ yesterday }}><br><br>
         <input type="submit" value="Reserv">
     </form>
     {% if exept == True %}
