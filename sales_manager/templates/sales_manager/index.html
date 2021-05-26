@@ -19,7 +19,14 @@
         {{ book.date_publish|date:"d-m-Y" }}<br>
         <a href="{% url 'book-like' book_id=book.id %}">
             <i>Likes {{ book.count_likes }} </i>
-        </a><br><br><hr>
+        </a><br>
+            {% for comment in book.comments.all %}
+                <p>{{ comment.text }}</p>
+                <p> Date: {{ comment.date|date:"d-m-Y" }}</p>
+                <p> Author: {{ comment.user.username }}</p>
+                <p> Likes: {{ comment.like.count }}</p>
+            {% endfor %}
+        <br><hr>
     {% endfor %}
 </body>
 </html>

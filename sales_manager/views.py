@@ -8,6 +8,7 @@ from django.db.models import Count
 
 def main_page(request):
     query_set = Book.objects.all().select_related('author'). \
+        prefetch_related('comments'). \
         annotate(count_likes=Count('likes'))
     context = {"books": query_set}
     return render(request, "sales_manager/index.html", context=context)
@@ -18,7 +19,7 @@ def book_detail(request, book_id):
     context = {"book": book}
     return render(request, "sales_manager/book_detail.html", context=context)
 
-@login_required()
+@login_required(login_url='/shop/login/')
 def book_like(request, book_id):
     book = Book.objects.get(id=book_id)
     if request.user in book.likes.all():

@@ -42,8 +42,10 @@ def room_reservation(request, room_id):
     context = {'room': room, 'exept': False, 'today': today,'yesterday': yesterday}
     if len(request.POST) != 0:
         for reserv in reservs:
-            if reserv.reservation_from <= date.fromisoformat(request.POST['reserv_from']) \
-                    and date.fromisoformat(request.POST['reserv_from']) <= reserv.reservation_to:
+            if (reserv.reservation_from <= date.fromisoformat(request.POST['reserv_from']) \
+                    and date.fromisoformat(request.POST['reserv_from']) <= reserv.reservation_to) \
+                    and (reserv.reservation_from <= date.fromisoformat(request.POST['reserv_to']) \
+                    and date.fromisoformat(request.POST['reserv_to']) <= reserv.reservation_to):
                 context = {'room': room, 'exept': True, 'today': today,'yesterday': yesterday}
                 return render(request, 'hotel_room/room_reservation.html', context=context)
         Reserv.objects.create(reservation_from=request.POST['reserv_from'], reservation_to=request.POST['reserv_to'],\
