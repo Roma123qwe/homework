@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Rating</h1><hr><br>
+    <form method="post" action="{% url 'rating' %}">
+        {% csrf_token %}
+        <label for="service">Service:</label><br>
+        <input name="service" id="service" type="range" max="10"><br><br>
+        <label for="personal">Personal:</label><br>
+        <input name="personal" id="personal" type="range" max="10"><br><br>
+        <label for="eat">Eat:</label><br>
+        <input name="eat" id="eat" type="range" max="10"><br><br>
+        <label for="Cleanness">Cleanness:</label><br>
+        <input name="cleanness" id="Cleanness" type="range" max="10"><br><br>
+        <label for="entertaiment">Entertaiment:</label><br>
+        <input name="entertaiment" id="entertaiment" type="range" max="10"><br><br>
+        <input type="submit"><br>
+    </form>
+    <a href="\hotel\"> Main page </a><br><br>
+    {% if user.is_superuser == True %}
+        <a href="{% url 'rating_stat' %}"><i>Statistic</i></a><br>
+    {% endif %}
+</body>
+</html>

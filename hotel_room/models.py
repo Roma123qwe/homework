@@ -29,3 +29,11 @@ class Owners(models.Model):
     room = models.ForeignKey(Room,
                              on_delete=models.CASCADE,
                               related_name='owner')
+    add_to = models.DateField()
+
+class Rating(models.Model):
+    service = models.PositiveSmallIntegerField()
+    cleanness = models.PositiveSmallIntegerField()
+    personal = models.PositiveSmallIntegerField()
+    eat = models.PositiveSmallIntegerField()
+    entertainment = models.PositiveSmallIntegerField()

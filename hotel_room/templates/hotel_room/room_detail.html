@@ -15,6 +15,9 @@
         Room is occupied<br>
     {% endif %}
     <a href="{% url 'room_reservation' room_id=room.id %}"><i>Reserv</i> </a><br>
+    {% if user.is_superuser == True %}
+        <a href="{% url 'owners_add' room_id=room.id %}"><i>Add owner's</i></a><br>
+    {% endif %}
     <a href="\hotel\"> Main page </a>
 
 
