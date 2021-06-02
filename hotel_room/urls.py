@@ -9,5 +9,5 @@ urlpatterns = [
     path('room_reservation/<int:room_id>/', views.room_reservation, name='room_reservation'),
     path('owners_add/<int:room_id>/', views.add_owners, name='owners_add'),
     path('rating/', views.rating, name='rating'),
-    path('rating_stat', views.rating_stat, name='rating_stat')
+    path('rating_stat', views.rating_stat, name='rating_stat'),
 ]

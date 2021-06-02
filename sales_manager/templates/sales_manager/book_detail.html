@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'sales_manager/main.html' %}
+{% block title %}Book detail{% endblock %}
+
+{% block content %}
+<div class="container">
     <h1>Book Detail Page</h1>
-    {{ book.title }}<br>
-    {{ book.text }}<br>
-    <i>{{ book.author }}</i><br>
-    {{ book.date_publish|date:"d-m-Y" }}<br><br>
-</body>
-</html>
+       {% include 'sales_manager/book-view.html' with book=book with_comment=True redirect_url='book_detail' %}
+
+</div>
+{% endblock %}

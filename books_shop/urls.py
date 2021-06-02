@@ -8,4 +8,5 @@ urlpatterns = [
     path('hotel/', include('hotel_room.urls')),
     path('account/', include('sales_manager.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('lokal_hotel/', include('lokal_hotel.urls')),
 ]

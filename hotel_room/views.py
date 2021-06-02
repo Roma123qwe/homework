@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 from django.contrib.auth import authenticate, login, logout
-from django.db.models import Avg, Count
+from django.db.models import Avg, Count, Q
 from django.shortcuts import render, redirect
 from django.views import View
 from hotel_room.models import Room, Reserv, Owners, Rating
@@ -40,16 +40,21 @@ def room_reservation(request, room_id):
     yesterday = date.today() + timedelta(days=1)
     reservs = Reserv.objects.filter(what_room_id=room_id)
     context = {'room': room, 'exept': False, 'today': today,'yesterday': yesterday}
+    start_date = date.fromisoformat(request.POST['start_date'])
+    end_date = date.fromisoformat(request.POST['end_date'])
+    kind = room.places_in_room
     if len(request.POST) != 0:
-        for reserv in reservs:
-            if (reserv.reservation_from <= date.fromisoformat(request.POST['reserv_from']) \
-                    and date.fromisoformat(request.POST['reserv_from']) <= reserv.reservation_to) \
-                    and (reserv.reservation_from <= date.fromisoformat(request.POST['reserv_to']) \
-                    and date.fromisoformat(request.POST['reserv_to']) <= reserv.reservation_to):
+        br = Reserv.objects.filter(
+            Q(reservation_from__gte=start_date, reservation_to__lte=end_date) |
+            Q(reservation_from__lte=start_date, reservation_to__gte=end_date) |
+            Q(reservation_from__gte=start_date, reservation_from__lte=end_date, reservation_to__gte=end_date) |
+            Q(reservation_to__gte=start_date, reservation_to__lte=end_date, reservation_from__lte=end_date)
+            )
+        if len(br) != 0:
                 context = {'room': room, 'exept': True, 'today': today,'yesterday': yesterday}
                 return render(request, 'hotel_room/room_reservation.html', context=context)
         Reserv.objects.create(reservation_from=request.POST['reserv_from'], reservation_to=request.POST['reserv_to'],\
-                           what_room_id=room_id, who_reserv_id=request.user.id )
+                           what_room_id=room_id, who_reserv_id=request.user.id)
         return redirect('/hotel/')
     return render(request, 'hotel_room/room_reservation.html', context=context)
 
