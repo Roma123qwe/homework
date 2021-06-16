@@ -1,12 +1,17 @@
- <a href="{% url 'book-detail' book_id=book.id %}">{{ book.title }}</a><br>
+ {% load static %}
+ <script scr="{% static 'script.js' %}"></script>
+
+<a href="{% url 'book-detail' book_id=book.id %}">{{ book.title }}</a><br>
         {{ book.text }}<br>
         <i>{{ book.author.username }}</i><br>
         {{ book.date_publish|date:"d-m-Y" }}<br>
-        <a href="{% url 'book-like' book_id=book.id %}">
-            <i>Likes {{ book.avg_rate }} </i>
-        </a><br><br><hr>
+            <i>Rate: {{ book.avg_rate }} </i><br>
+            {% for i in '12345' %}
+                <a href="{% url 'book_rate' book_id=book.id rate=i redirect_url=redirect_url %}">{{ i }}</a>
+            {% endfor %}
+       <br><br><hr>
  {% if with_comment%}
-     <form action="{% url 'add_comment' book_id=book.id redirect_url=redirect_url %}" method="post">
+     <form action="{% url 'add_comment' book_id=book.id %}" method="post">
         {% csrf_token %}
         <div class="form-group">
             <label for="comment">Comment:</label>
@@ -18,7 +23,7 @@
         <p>{{ comment.text }}</p>
         <p> Date: {{ comment.date|date:"d-m-Y-H:i:s" }}</p>
         <p> Author: {{ comment.user.username }}</p>
-        <p> Likes: {{ comment.count_likes }}</p>
+        <a href="{% url 'comment-like' comment_id=comment.id %}"><p> Likes: {{ comment.count_likes }}</p></a>
     <hr>
     {% endfor %}
  {% endif %}

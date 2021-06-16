@@ -29,6 +29,12 @@ class UserRateBook(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.SET_DEFAULT, default=3)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='rated_user')
+    avg_rate = models.DecimalField(
+        max_digits=5,
+        decimal_places=3,
+        null=True,
+        blank=True
+    )
     rate = models.PositiveSmallIntegerField(
         default=0,
         validators=[MinValueValidator(0), MaxValueValidator(5)]
